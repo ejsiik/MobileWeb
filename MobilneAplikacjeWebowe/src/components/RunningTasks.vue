@@ -1,8 +1,8 @@
 <script setup>
 var counter= 4;
 
-function addElement() {
-var completelist= document.getElementById("thelist");
+function loadElements() {
+var completelist= document.getElementById("list");
 
 completelist.innerHTML += "<li>Item " + counter + "</li>";
 counter++;
@@ -10,19 +10,11 @@ counter++;
 </script>
 
 <template>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AddTask Page</title>
-    </head>
-    <body class = "addTask">
-        <button onclick="addElement();">Add Item</button>
-        <ul id="thelist">
-        <li>Item 1</li>
-        <li>Item 2</li>
-        <li>Item 3</li>
+    <div class = "tasks">
+        Aktywne zadania
+        <ul id="list" > 
         </ul>
-    </body>
+    </div>
 </template>
 
 <style>

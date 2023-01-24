@@ -1,35 +1,51 @@
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { connection } from "../backend-connection/connection"
+
+const router = useRouter()
+
+const username = ref('');
+const password = ref('');
+async function login(event) {
+    event.preventDefault();
+    try {
+        const log = await connection.login(username.value, password.value);
+    }
+    catch (err) {
+        alert(err.message);
+    }
+    router.push({ path: '/menu' });
+}
+</script>
+
+
 <template>
-  <head>
+    <!-- <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
+</head> -->
     <div class="login-form">
         <h2>Login</h2>
-        <form>
+        <form @submit="login">
             <div class="input-container">
                 <label>Username</label>
-                <input type="text" name="username" />
+                <input type="text" name="username" v-model="username" />
             </div>
             <div class="input-container">
                 <label>Password</label>
-                <input type="password" name="password" />
+                <input type="password" name="password" v-model="password" />
             </div>
             <div class="submit-container">
                 <input type="submit" value="Login" />
             </div>
         </form>
     </div>
-</body>
 </template>
 
 <style scoped>
-body {
-    background-color: #1c2a53;
-}
-
 .login-form {
     padding: 0.5em;
     background: #FFFFFF;
@@ -51,7 +67,7 @@ body {
 
 .login-form .input-container {
     margin: 0.5em 0;
-    color:#fff;
+    color: #fff;
 }
 
 .login-form .input-container label {
@@ -77,7 +93,7 @@ body {
 .login-form .submit-container {
     text-align: center;
     color: #fff;
-    
+
 }
 
 .login-form .submit-container input {
