@@ -5,8 +5,11 @@ const props = defineProps(['data'])
 
 <template>
     <ul id="list">
-        <li v-for="item in Object.keys(data)">
+        <li v-if="data" v-for="item in Object.keys(data)">
             {{ item }}
+        </li>
+        <li v-else>
+            Ładowanie...
         </li>
     </ul>
 </template>
