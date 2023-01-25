@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AddTaskPanel from '../components/AddTaskPanel.vue'
-import RunningTasks from '../components/RunningTasks.vue'
-import Raports from '../components/Raports.vue'
 import { connection } from '../backend-connection/connection'
 
 const router = createRouter({
@@ -24,17 +21,17 @@ const router = createRouter({
     {
       path: '/addTask',
       name: 'addTask',
-      component: AddTaskPanel
+      component: () => import('../views/AddTaskView.vue')
     },
     {
       path: '/tasks',
       name: 'tasks',
-      component: RunningTasks
+      component: () => import('../views/RunningTasksView.vue')
     },
     {
       path: '/raports',
       name: 'raports',
-      component: Raports
+      component: () => import("../views/RaportsView.vue")
     }
   ]
 })

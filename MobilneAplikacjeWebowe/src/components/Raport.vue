@@ -1,29 +1,23 @@
 <script setup>
-var counter = 4;
+const props = defineProps(['data'])
 
-function loadElements() {
-  var completelist = document.getElementById("list");
-
-  completelist.innerHTML += "<li>Item " + counter + "</li>";
-  counter++;
-}
 </script>
 
 <template>
-  <div class="tasks">
-    Raporty
     <ul id="list">
+        <li v-for="item in Object.keys(data)">
+            {{ item }}
+        </li>
     </ul>
-  </div>
 </template>
 
 <style>
-ul#thelist {
+ul#list {
   list-style: none;
   padding: 0;
 }
 
-ul#thelist li {
+ul#list li {
   padding: 0.5rem;
   margin: 0.5rem;
   background-color: #F1F1F1;
