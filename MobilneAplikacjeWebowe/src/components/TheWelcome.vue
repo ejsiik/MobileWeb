@@ -13,13 +13,6 @@ function logout(event) {
 </script>
 
 <template>
-  <!-- to wrzuca do body
-     <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Page</title>
-    <link rel="stylesheet" href="styleGrid.css">
-  </head> -->
   <div class="container">
     <RouterLink to="/addTask" class="box">Add Task</RouterLink>
     <RouterLink to="/tasks" class="box">Running Tasks</RouterLink>
@@ -33,12 +26,11 @@ function logout(event) {
   flex: 1;
   background-color: #1c2a53;
   display: grid;
-  /* Jak się zmieni grid gap to zmienić też w template*/
   grid-template-columns: calc(50% - 10px) calc(50% - 10px);
   grid-template-rows: calc(50% - 10px) calc(50% - 10px);
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
-
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.5rem;
+  justify-content: center;
 }
 
 .box {
@@ -50,7 +42,12 @@ function logout(event) {
   text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
+  font-size: 220%;
   font-family: sans-serif;
+}
+@media only screen and (max-device-width: 360px) {
+  .box {
+    font-size: 180%;
+  }
 }
 </style>

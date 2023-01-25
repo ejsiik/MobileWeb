@@ -6,8 +6,5 @@ import { RouterView } from 'vue-router'
       <RouterView />
 </template>
 
-<style>
-  #app {
-    padding:10px;
-  }
+<style scoped>
 </style>
