@@ -16,12 +16,23 @@ connection.getDoneTasksFromCurrentUserHierarchy()
 
 </script>
 
+<script>
+export default {
+    methods: {
+        handleClick(category) {
+            connection.addTask(category,category) //how to get task name
+            console.log(category);
+        }
+    }
+}
+</script>
+
 <template>
     <div id = "wrapper">
     <ul id = "category">
-        <li>Computer<AddTaskPanel :data="doneTasksState.data?.tasks?.Computer" /></li>
-        <li>Console<AddTaskPanel :data="doneTasksState.data?.tasks?.Console" /></li>
-        <li>Phone<AddTaskPanel :data="doneTasksState.data?.tasks?.Phone" /></li>
+        <li v-on:click="handleClick('Computer')">Computer<AddTaskPanel :data="doneTasksState.data?.tasks?.Computer" /></li>
+        <li v-on:click="handleClick('Console')">Console<AddTaskPanel :data="doneTasksState.data?.tasks?.Console" /></li>
+        <li v-on:click="handleClick('Phone')">Phone<AddTaskPanel :data="doneTasksState.data?.tasks?.Phone" /></li>
     </ul>
 </div>
 </template>
