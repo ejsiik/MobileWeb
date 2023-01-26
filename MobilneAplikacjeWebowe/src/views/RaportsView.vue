@@ -32,6 +32,8 @@ connection.getDoneTasksFromCurrentUserHierarchy()
   display:flex;
   align-items: center;
   justify-content: center;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 ul#category {
   flex:1;

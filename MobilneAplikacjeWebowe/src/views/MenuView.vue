@@ -13,6 +13,8 @@ import TheWelcome from '../components/TheWelcome.vue';
   min-height: 100%;
   min-width: 100%;
   display: flex;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 </style>

@@ -47,6 +47,8 @@ async function login(event) {
 
 <style scoped>
 .login-form {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
     padding: 0.5em;
     background: #FFFFFF;
     width: 80%;
