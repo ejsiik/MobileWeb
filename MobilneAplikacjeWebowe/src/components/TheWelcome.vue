@@ -16,7 +16,7 @@ function logout(event) {
   <div class="container">
     <RouterLink to="/addTask" class="box">Add Task</RouterLink>
     <RouterLink to="/tasks" class="box">Running Tasks</RouterLink>
-    <RouterLink to="/raports" class="box">Raporty</RouterLink>
+    <RouterLink to="/choose" class="box">Raporty</RouterLink>
     <RouterLink @click="logout" to="/" class="box">Logout</RouterLink>
   </div>
 </template>

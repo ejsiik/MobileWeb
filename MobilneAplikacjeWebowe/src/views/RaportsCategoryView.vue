@@ -1,5 +1,5 @@
 <script setup>
-import Raport from '../components/Raport.vue';
+import RaportsCategory from '../components/RaportsCategory.vue';
 import { reactive } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
@@ -19,9 +19,9 @@ connection.getDoneTasksFromCurrentUserHierarchy()
 <template>
     <div id = "wrapper">
     <ul id = "category">
-        <li>Computer<Raport :data="doneTasksState.data?.tasks?.Computer" /></li>
-        <li>Console<Raport :data="doneTasksState.data?.tasks?.Console" /></li>
-        <li>Phone<Raport :data="doneTasksState.data?.tasks?.Phone" /></li>
+        <li>Computer<RaportsCategory :data="doneTasksState.data?.tasks?.Computer" /></li>
+        <li>Console<RaportsCategory :data="doneTasksState.data?.tasks?.Console" /></li>
+        <li>Phone<RaportsCategory :data="doneTasksState.data?.tasks?.Phone" /></li>
     </ul>
 </div>
 </template>
