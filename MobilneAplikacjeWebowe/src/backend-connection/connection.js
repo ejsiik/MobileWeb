@@ -52,6 +52,21 @@ class Connection {
         return json;
     }
 
+    async getTasksToAdd() {
+        const response = await fetch(`${url}tasks`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${this.authToken}`
+            },
+        })
+        if(!response.ok){
+            throw Error((await response.json()).error);
+        }
+        const tasks = await response.json();
+        return tasks;
+    }
+
     async runningTasks() {
         const response = await fetch(url + "running-tasks", {
             method: 'GET',

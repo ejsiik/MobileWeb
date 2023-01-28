@@ -1,12 +1,18 @@
 <script setup>
+import { connection } from '../backend-connection/connection.js';
 const props = defineProps(['data'])
+
+function handleClick(name, category) {
+            connection.addTask(category, name);
+            console.log(name, category);
+        }
 
 </script>
 
 
 <template>
   <ul class="list_add_task">
-      <li v-if="data" v-for="item in Object.keys(data)">
+      <li v-if="data" v-for="item in data.tasks" v-on:click="handleClick(item, data.category)">
           {{ item }}
       </li>
       <li v-else>

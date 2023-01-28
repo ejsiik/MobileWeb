@@ -9,7 +9,7 @@ const props = defineProps(['data'])
             {{ item }}
         </li>
         <li v-else>
-            Ładowanie...
+            No done tasks in this category
         </li>
     </ul>
 </template>

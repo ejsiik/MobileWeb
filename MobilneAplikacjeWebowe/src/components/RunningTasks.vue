@@ -1,12 +1,26 @@
 <script setup>
+import { reactive } from 'vue';
+import { connection } from '../backend-connection/connection.js';
 const props = defineProps(['data'])
+
+const emit = defineEmits(["done"]);
+
+async function check(event, id){
+  await connection.changeTaskStatus(id)
+  emit("done")
+  console.log(id)
+}
+
 </script>
 
 
 <template>
   <ul class="list_running_tasks">
-      <li v-if="data" v-for="item in Object.keys(data)">
-          {{ item }}
+      <li v-if="data && data.length > 0" v-for="item in data" :key="item.id">
+          {{ item.category }}: {{ item.name }}
+          <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item.id)"/>
+          <br/> 
+          Started At: {{ new Date(item.createdAt).toLocaleString() }}
       </li>
       <li v-else>
         No tasks currently in progress
@@ -15,6 +29,14 @@ const props = defineProps(['data'])
 </template>
 
 <style>
+.running-task-check{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 50px;
+  height: 50px;
+}
+
 ul.list_running_tasks {
 list-style: none;
 padding: 0;

@@ -3,36 +3,31 @@ import AddTaskPanel from '../components/AddTaskPanel.vue';
 import { reactive } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
-const doneTasksState = reactive({ data: null });
+const doneTasksState = reactive({ data: null, keyz: [] });
 
-connection.getDoneTasksFromCurrentUserHierarchy()
+connection.getTasksToAdd()
 .then(data => {
     doneTasksState.data = data;
+    doneTasksState.keyz = Object.keys(data.tasks);
     console.log(data);
+
 })
 .catch(e => {
     alert("Błąd wczytywania danych");
 });
 
-</script>
-
-<script>
-export default {
-    methods: {
-        handleClick(category) {
+function handleClick(category) {
             connection.addTask(category,category) //how to get task name
             console.log(category);
         }
-    }
-}
+
 </script>
 
 <template>
     <div class = "wrapper">
     <ul class = "category">
-        <li v-on:click="handleClick('Computer')">Computer<AddTaskPanel :data="doneTasksState.data?.tasks?.Computer" /></li>
-        <li v-on:click="handleClick('Console')">Console<AddTaskPanel :data="doneTasksState.data?.tasks?.Console" /></li>
-        <li v-on:click="handleClick('Phone')">Phone<AddTaskPanel :data="doneTasksState.data?.tasks?.Phone" /></li>
+        <li v-for="cat in doneTasksState.keyz">{{ cat }}<AddTaskPanel :data="{ tasks: doneTasksState.data?.tasks?.[cat], category: cat}" /></li>
+
     </ul>
 </div>
 </template>
