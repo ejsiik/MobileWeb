@@ -5,7 +5,7 @@ const props = defineProps(['data'])
 
 const emit = defineEmits(["done"]);
 
-async function check(event, id){
+async function check(event, id) {
   await connection.changeTaskStatus(id)
   emit("done")
   console.log(id)
@@ -16,30 +16,34 @@ async function check(event, id){
 
 <template>
   <ul class="list_running_tasks">
-      <li v-if="data && data.length > 0" v-for="item in data" :key="item.id">
-          {{ item.category }}: {{ item.name }}
-          <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item.id)"/>
-          <br/> 
-          Started At: {{ new Date(item.createdAt).toLocaleString() }}
-      </li>
-      <li v-else>
-        No tasks currently in progress
-      </li>
+    <li v-if="data && data.length > 0" v-for="item in data" :key="item.id">
+      {{ item.category }}: {{ item.name }}
+      <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item.id)" />
+      <br />
+      Started At: {{ new Date(item.createdAt).toLocaleString() }}
+    </li>
+    <li v-else>
+      <center>
+        No tasks
+        <br /> currently in progress
+      </center>
+    </li>
   </ul>
 </template>
 
 <style>
-.running-task-check{
+.running-task-check {
   position: absolute;
-  right: 5px;
-  top: 5px;
-  width: 50px;
-  height: 50px;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
 }
 
 ul.list_running_tasks {
-list-style: none;
-padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 ul.list_running_tasks li {
@@ -50,23 +54,23 @@ ul.list_running_tasks li {
   margin: 0.5rem;
   background-color: #2A3B6F;
   border-radius: 0.2rem;
-  width:calc(100% - 1rem);
+  width: calc(100% - 1rem);
   color: #F1F1F1;
 }
 
 @media only screen and (orientation: landscape) {
-    ul.list_running_tasks li {
-        text-align: center;
-    }
+  ul.list_running_tasks li {
+    text-align: center;
+  }
 }
 
 
 button {
-margin: 15% 30%;
-background-color: #FFFFFF;
-border-radius: 0.2rem;
-text-align: center;
-display: block;
-color: #2A3B6F;
+  margin: 15% 30%;
+  background-color: #FFFFFF;
+  border-radius: 0.2rem;
+  text-align: center;
+  display: block;
+  color: #2A3B6F;
 }
 </style>
