@@ -1,6 +1,10 @@
 let url = 'https://ktogdziekiedy.scuroguardiano.net/';
 
 class Connection {
+    constructor() {
+        this.authToken = localStorage.getItem("token");
+    }
+
     async login(login, password) {
         const response = await fetch(url + "login", {
             method: 'POST',
@@ -14,6 +18,7 @@ class Connection {
         }
         const json = await response.json();
         this.authToken = json.token;
+        localStorage.setItem("token", this.authToken);
     }
 
     async me() {
@@ -169,6 +174,7 @@ class Connection {
 
     logout(){
         this.authToken = "";
+        localStorage.removeItem("token");
     }
 }
 
