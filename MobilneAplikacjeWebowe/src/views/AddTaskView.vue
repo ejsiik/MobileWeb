@@ -16,10 +16,6 @@ connection.getTasksToAdd()
     alert("Błąd wczytywania danych");
 });
 
-function handleClick(category) {
-            connection.addTask(category,category) //how to get task name
-            console.log(category);
-        }
 
 </script>
 

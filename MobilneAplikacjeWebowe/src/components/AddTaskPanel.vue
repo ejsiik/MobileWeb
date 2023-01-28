@@ -1,10 +1,15 @@
 <script setup>
 import { connection } from '../backend-connection/connection.js';
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster({ maxToasts: 2, duration: 1000 });
+
 const props = defineProps(['data'])
 
 function handleClick(name, category) {
             connection.addTask(category, name);
             console.log(name, category);
+            toaster.info(`Task "${name}"" from category: "${category}" has been added.`);
         }
 
 </script>
@@ -28,6 +33,7 @@ padding: 0;
 }
 
 ul.list_add_task li {
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   text-align: left;
