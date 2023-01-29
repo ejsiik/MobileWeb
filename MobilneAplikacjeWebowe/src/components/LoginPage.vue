@@ -7,36 +7,46 @@ const router = useRouter()
 
 const username = ref('');
 const password = ref('');
+const errorMessage = ref('');
+
 async function login(event) {
     event.preventDefault();
+    let errorsDiv = document.querySelector(".input-container");
+    if (!username.value) {
+        errorsDiv.insertAdjacentHTML('beforeend', '<p>Please enter a username.</p>');
+        return;
+    }
+    if (!password.value) {
+        errorsDiv.insertAdjacentHTML('beforeend', '<p>Please enter a password.</p>');
+        return;
+    }
     try {
         const log = await connection.login(username.value, password.value);
+        errorMessage.value = '';
     }
     catch (err) {
-        alert(err.message);
+        if(!errorMessage.value) {
+            errorsDiv.insertAdjacentHTML('afterend', `<p style="color: red">${err.message}</p>`);
+            errorMessage.value = err.message;
+        }
+        username.value = ''
+        password.value = ''
     }
     router.push({ path: '/menu' });
 }
 </script>
 
-
 <template>
-    <!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="style.css">
-</head> -->
     <div class="login-form">
         <h2>Login</h2>
         <form @submit="login">
             <div class="input-container">
                 <label>Username</label>
-                <input type="text" name="username" v-model="username" />
+                <input type="text" name="username" v-model="username" required/>
             </div>
             <div class="input-container">
                 <label>Password</label>
-                <input type="password" name="password" v-model="password" />
+                <input type="password" name="password" v-model="password" required/>
             </div>
             <div class="submit-container">
                 <input type="submit" value="Login" />
@@ -46,6 +56,10 @@ async function login(event) {
 </template>
 
 <style scoped>
+
+.error-message {
+    color: red;
+}
 .login-form {
     max-width: 100% !important;
     overflow-x: hidden !important;
