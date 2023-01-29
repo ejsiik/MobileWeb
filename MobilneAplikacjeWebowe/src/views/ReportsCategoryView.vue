@@ -21,9 +21,9 @@ connection.getDoneTasksFromCurrentUserHierarchy()
 <template>
     <div class = "wrapper">
     <ul class = "category">
-        <li>Computer<Raport :data="doneTasksState.data?.tasks?.Computer" /></li>
-        <li>Console<Raport :data="doneTasksState.data?.tasks?.Console" /></li>
-        <li>Phone<Raport :data="doneTasksState.data?.tasks?.Phone" /></li>
+        <li>Computer<RaportsCategory :data="doneTasksState.data?.tasks?.Computer" /><ul><li></li></ul></li>
+        <li>Console<RaportsCategory :data="doneTasksState.data?.tasks?.Console"/><ul><li></li></ul></li>
+        <li>Phone<RaportsCategory :data="doneTasksState.data?.tasks?.Phone" /><ul><li></li></ul></li>
     </ul>
 </div>
 </template>

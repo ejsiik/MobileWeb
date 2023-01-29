@@ -21,7 +21,7 @@ connection.getDoneTasksFromCurrentUser()
 <template>
   <div id = "wrapper">
     <ul id = "category">
-      <li>Computer<RaportsAll :data="doneTasksState.data?.tasks" /></li>
+      <li><RaportsAll :data="doneTasksState.data?.tasks" /></li>
     </ul>
 </div>
 </template>

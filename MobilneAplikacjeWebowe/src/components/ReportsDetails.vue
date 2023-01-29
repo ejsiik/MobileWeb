@@ -1,11 +1,16 @@
-<script setup>
+
+<script>
 import { connection } from '../backend-connection/connection'
+export default {
+    name: () => import("../views/ReportsDetailsView.vue"),
+    props: ['items']
+};
 </script>
 
 <template>
     <div class="details">
         <p class="static">Name</p>
-        <p class="input" id="name">text</p>
+        <p class="input" id="name">{{ items.id }}</p>
 
         <p class="static">Category</p>
         <p class="input" id="category">text</p>

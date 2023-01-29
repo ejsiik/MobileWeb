@@ -2,13 +2,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { connection } from "../backend-connection/connection"
-
 const router = useRouter()
-
 const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
-
 async function login(event) {
     event.preventDefault();
     let errorsDiv = document.querySelector(".input-container");
@@ -56,7 +53,6 @@ async function login(event) {
 </template>
 
 <style scoped>
-
 .error-message {
     color: red;
 }
@@ -70,7 +66,6 @@ async function login(event) {
     border-radius: 0.5em;
     box-shadow: 0 0 0.5em #000;
 }
-
 .login-form h2 {
     font-size: 1.2em;
     font-family: sans-serif;
@@ -80,12 +75,10 @@ async function login(event) {
     margin: 0 0 0.5em 0;
     padding: 0;
 }
-
 .login-form .input-container {
     margin: 0.5em 0;
     color: #fff;
 }
-
 .login-form .input-container label {
     font-family: sans-serif;
     color: #2A3B6F;
@@ -94,7 +87,6 @@ async function login(event) {
     display: block;
     margin: 0 0 0.3em 0;
 }
-
 .login-form .input-container input {
     border: 1px solid #000;
     padding: 0.2em;
@@ -105,13 +97,10 @@ async function login(event) {
     margin: 0;
     width: 95%;
 }
-
 .login-form .submit-container {
     text-align: center;
     color: #fff;
-
 }
-
 .login-form .submit-container input {
     border: 1px solid #000;
     padding: 0.2em 0.5em;

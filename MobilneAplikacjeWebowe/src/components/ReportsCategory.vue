@@ -5,8 +5,10 @@ const props = defineProps(['data'])
 
 <template>
     <ul class="list">
-        <li v-if="data" v-for="item in Object.keys(data)">
-            {{ item }}
+        <li v-if="data" v-for="item in data">
+            <ul v-for="i in item.tasks" :key="i.id">
+              <li>{{ i.name }} : {{ i.createdAt }}</li>
+            </ul>
         </li>
         <li v-else>
             No done tasks in this category
@@ -30,6 +32,13 @@ ul.list li {
   border-radius: 0.2rem;
   width:calc(100% - 1rem);
   color: #F1F1F1;
+}
+
+ul.list li ul li{
+  margin: 5px;
+  background-color: aqua;
+  color: black;
+  list-style-type: none;
 }
 @media only screen and (orientation: landscape) {
     ul.list li {
