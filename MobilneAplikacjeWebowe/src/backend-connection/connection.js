@@ -1,6 +1,10 @@
 let url = 'https://ktogdziekiedy.scuroguardiano.net/';
 
 class Connection {
+    constructor() {
+        this.authToken = localStorage.getItem("token");
+    }
+
     async login(login, password) {
         const response = await fetch(url + "login", {
             method: 'POST',
@@ -14,6 +18,7 @@ class Connection {
         }
         const json = await response.json();
         this.authToken = json.token;
+        localStorage.setItem("token", this.authToken);
     }
 
     async me() {
@@ -45,6 +50,21 @@ class Connection {
         }
         const json = await response.json();
         return json;
+    }
+
+    async getTasksToAdd() {
+        const response = await fetch(`${url}tasks`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${this.authToken}`
+            },
+        })
+        if(!response.ok){
+            throw Error((await response.json()).error);
+        }
+        const tasks = await response.json();
+        return tasks;
     }
 
     async runningTasks() {
@@ -169,6 +189,7 @@ class Connection {
 
     logout(){
         this.authToken = "";
+        localStorage.removeItem("token");
     }
 }
 

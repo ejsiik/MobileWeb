@@ -1,6 +1,5 @@
 <script setup>
 import RaportsChoose from '../components/RaportsChoose.vue';
-
 </script>
 
 <template>

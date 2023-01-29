@@ -4,21 +4,25 @@ import { connection } from '../backend-connection/connection'
 </script>
 
 <template>
-  <div class="container">
-    <RouterLink to="/choose/all" class="box">WSZYSTKIE</RouterLink>
-    <RouterLink to="/choose/category" class="box">WEDŁUG KATEGORII</RouterLink>
+  <div class="con">
+    <RouterLink to="/choose/all" class="boxx">ALL</RouterLink>
+    <RouterLink to="/choose/category" class="boxx">BY CATEGORY</RouterLink>
   </div>
 </template>
 
 <style>
-.container {
+.con {
+  width: calc(100vw - 10px);
   display: flex;
   flex-direction: column;
   background-color: #1c2a53;
   justify-content: center;
+  align-items: center;
 }
 
-.box {
+.boxx {
+  margin: 10px;
+  width: calc(100% - 10px);
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;

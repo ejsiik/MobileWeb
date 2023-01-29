@@ -13,7 +13,6 @@ connection.getDoneTasksFromCurrentUserHierarchy()
 .catch(e => {
     alert("Błąd wczytywania danych");
 });
-
 </script>
 
 <template>

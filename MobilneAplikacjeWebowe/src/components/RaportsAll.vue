@@ -1,24 +1,40 @@
 <script setup>
-import { connection } from '../backend-connection/connection'
-
+import { connection } from '../backend-connection/connection.js'
+const props = defineProps(['data'])
 </script>
 
 <template>
-  <div class="container">
-        <p>TO DO XD</p>
-  </div>
+  <ul id="list">
+      <li v-if="data && data.length > 0" v-for="item in data" :key="item.id">
+        {{ item.category }}: {{ item.name }}
+      </li>
+      <li v-else>
+          Ładowanie...
+      </li>
+  </ul>
 </template>
 
 <style>
-.container {
-  display: flex;
-  flex-direction: column;
-  background-color: #1c2a53;
-  justify-content: center;
+ul#list {
+  list-style: none;
+  padding: 0;
 }
-@media only screen and (max-device-width: 360px) {
-  .box {
-    font-size: 180%;
-  }
+
+ul#list li {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background-color: #F1F1F1;
+  border-radius: 0.2rem;
+  width: 70%;
+  color: #2A3B6F;
+}
+
+button {
+  margin: 15% 30%;
+  background-color: #FFFFFF;
+  border-radius: 0.2rem;
+  text-align: center;
+  display: block;
+  color: #2A3B6F;
 }
 </style>
