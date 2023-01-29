@@ -20,7 +20,9 @@ async function login(event) {
     try {
         const log = await connection.login(username.value, password.value);
         errorMessage.value = '';
+        router.push({ path: '/menu' });
     }
+    
     catch (err) {
         if(!errorMessage.value) {
             errorsDiv.insertAdjacentHTML('afterend', `<p style="color: red">${err.message}</p>`);
@@ -29,7 +31,6 @@ async function login(event) {
         username.value = ''
         password.value = ''
     }
-    router.push({ path: '/menu' });
 }
 </script>
 
