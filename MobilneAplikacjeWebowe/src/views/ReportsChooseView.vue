@@ -1,15 +1,14 @@
 <script setup>
+import RaportsChoose from '../components/ReportsChoose.vue';
 import { inject } from 'vue';
-import TheWelcome from '../components/TheWelcome.vue';
 
 const banner = inject("banner");
-banner.title = "Main menu";
-
+banner.title = "Reports";
 </script>
 
 <template>
   <div class="menu">
-    <TheWelcome />
+    <RaportsChoose />
   </div>
 </template>
 
@@ -21,5 +20,4 @@ banner.title = "Main menu";
   max-width: 100% !important;
   overflow-x: hidden !important;
 }
-
 </style>

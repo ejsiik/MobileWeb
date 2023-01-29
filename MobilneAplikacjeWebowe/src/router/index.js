@@ -31,22 +31,22 @@ const router = createRouter({
     {
       path: '/choose',
       name: 'raportsChoose',
-      component: () => import("../views/RaportsChooseView.vue")
+      component: () => import("../views/ReportsChooseView.vue")
     },
     {
       path: '/choose/category',
       name: 'raportsCategory',
-      component: () => import("../views/RaportsCategoryView.vue")
+      component: () => import("../views/ReportsCategoryView.vue")
     },
     {
       path: '/choose/all',
       name: 'raportsAll',
-      component: () => import("../views/RaportsAllView.vue")
+      component: () => import("../views/ReportsAllView.vue")
     },
     {
       path: '/choose/details',
       name: 'raportsDetails',
-      component: () => import("../views/RaportsDetailsView.vue")
+      component: () => import("../views/ReportsDetailsView.vue")
     }
   ]
 })

@@ -1,7 +1,10 @@
 <script setup>
 import RunningTasks from '../components/RunningTasks.vue';
-import { reactive } from 'vue';
+import { reactive, inject } from 'vue';
 import { connection } from '../backend-connection/connection.js';
+
+const banner = inject("banner");
+banner.title = "Running Tasks";
 
 const runningTasks = reactive({ data: null });
 

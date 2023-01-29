@@ -1,32 +1,29 @@
 <script setup>
-import AddTaskPanel from '../components/AddTaskPanel.vue';
+import RaportsCategory from '../components/ReportsCategory.vue';
 import { reactive, inject } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 const banner = inject("banner");
-banner.title = "Add task";
+banner.title = "Reports by Category";
 
-const doneTasksState = reactive({ data: null, keyz: [] });
+const doneTasksState = reactive({ data: null });
 
-connection.getTasksToAdd()
+connection.getDoneTasksFromCurrentUserHierarchy()
 .then(data => {
     doneTasksState.data = data;
-    doneTasksState.keyz = Object.keys(data.tasks);
     console.log(data);
-
 })
 .catch(e => {
     alert("Błąd wczytywania danych");
 });
-
-
 </script>
 
 <template>
     <div class = "wrapper">
     <ul class = "category">
-        <li v-for="cat in doneTasksState.keyz">{{ cat }}<AddTaskPanel :data="{ tasks: doneTasksState.data?.tasks?.[cat], category: cat}" /></li>
-
+        <li>Computer<Raport :data="doneTasksState.data?.tasks?.Computer" /></li>
+        <li>Console<Raport :data="doneTasksState.data?.tasks?.Console" /></li>
+        <li>Phone<Raport :data="doneTasksState.data?.tasks?.Phone" /></li>
     </ul>
 </div>
 </template>
