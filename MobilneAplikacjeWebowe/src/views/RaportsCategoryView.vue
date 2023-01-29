@@ -1,5 +1,5 @@
 <script setup>
-import Raport from '../components/Raport.vue';
+import RaportsCategory from '../components/RaportsCategory.vue';
 import { reactive } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
@@ -13,7 +13,6 @@ connection.getDoneTasksFromCurrentUserHierarchy()
 .catch(e => {
     alert("Błąd wczytywania danych");
 });
-
 </script>
 
 <template>

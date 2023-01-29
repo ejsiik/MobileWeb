@@ -29,9 +29,24 @@ const router = createRouter({
       component: () => import('../views/RunningTasksView.vue')
     },
     {
-      path: '/raports',
-      name: 'raports',
-      component: () => import("../views/RaportsView.vue")
+      path: '/choose',
+      name: 'raportsChoose',
+      component: () => import("../views/RaportsChooseView.vue")
+    },
+    {
+      path: '/choose/category',
+      name: 'raportsCategory',
+      component: () => import("../views/RaportsCategoryView.vue")
+    },
+    {
+      path: '/choose/all',
+      name: 'raportsAll',
+      component: () => import("../views/RaportsAllView.vue")
+    },
+    {
+      path: '/choose/details',
+      name: 'raportsDetails',
+      component: () => import("../views/RaportsDetailsView.vue")
     }
   ]
 })
