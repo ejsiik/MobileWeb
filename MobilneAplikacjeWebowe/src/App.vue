@@ -23,8 +23,9 @@ const hidden = computed(() => ["/menu", "/"].includes(route.path));
       margin: 0;
       border: none;
       position: absolute;
-      left: 10px;
+      left: 15px;
       background-color: #344887;
+      font-size: 22px;
       color: #f8f8f8;
 }
 
