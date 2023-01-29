@@ -1,14 +1,17 @@
 <script setup>
 import { reactive } from 'vue';
 import { connection } from '../backend-connection/connection.js';
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster({ maxToasts: 2, duration: 1000 });
+
 const props = defineProps(['data'])
 
 const emit = defineEmits(["done"]);
 
-async function check(event, id) {
-  await connection.changeTaskStatus(id)
-  emit("done")
-  console.log(id)
+async function check(event, item) {
+  await connection.changeTaskStatus(item.id)
+  toaster.info(`Task "${item.name}"" from category: "${item.category}" has been marked as Done.`);
+  emit("done");
 }
 
 </script>
@@ -18,7 +21,7 @@ async function check(event, id) {
   <ul class="list_running_tasks">
     <li v-if="data && data.length > 0" v-for="item in data" :key="item.id">
       {{ item.category }}: {{ item.name }}
-      <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item.id)" />
+      <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item)" />
       <br />
       Started At: {{ new Date(item.createdAt).toLocaleString() }}
     </li>

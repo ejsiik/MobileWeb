@@ -1,49 +1,73 @@
 <script setup>
 import RaportsCategory from '../components/ReportsCategory.vue';
-import { reactive, inject } from 'vue';
+import { reactive, inject, ref } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 const banner = inject("banner");
 banner.title = "Reports by Category";
 
-const doneTasksState = reactive({ data: null });
+const doneTasksState = reactive({ data: null, keyz: [] });
+
+const notHidden = reactive({
+  "Computer": false,
+  "Phone": false,
+  "Console": false
+});
 
 connection.getDoneTasksFromCurrentUserHierarchy()
-.then(data => {
-    doneTasksState.data = data;
+  .then(data => {
+    // console.log(Object.keys(data.tasks.Console));
+    // for (i of Object.keys(data.tasks).length) {
+    //   for (j in Object.keys(data.tasks[i]).length)
+    //   data.tasks[i][j].sort((a, b) => Date.parse(b.endTime) - Date.parse(a.endTime));
+    // }
+    
     console.log(data);
-})
-.catch(e => {
+    Object.values(data.tasks).forEach(cat => {
+      const xd = [];
+      Object.values(cat).forEach(({ tasks }) => {
+       xd.push(...tasks);
+      })
+      xd.sort((a, b) => Date.parse(b.endTime) - Date.parse(a.endTime));
+      cat.tasks = xd;
+    })
+    doneTasksState.data = data;
+    doneTasksState.keyz = Object.keys(data.tasks);
+  })
+  .catch(e => {
+    console.error(e);
     alert("Błąd wczytywania danych");
-});
+  });
 </script>
 
 <template>
-    <div class = "wrapper">
-    <ul class = "category">
-        <li>Computer<RaportsCategory :data="doneTasksState.data?.tasks?.Computer" /><ul><li></li></ul></li>
-        <li>Console<RaportsCategory :data="doneTasksState.data?.tasks?.Console"/><ul><li></li></ul></li>
-        <li>Phone<RaportsCategory :data="doneTasksState.data?.tasks?.Phone" /><ul><li></li></ul></li>
+  <div class="wrapper">
+    <ul class="category">
+      <li @click ="notHidden[cat] = !notHidden[cat]" v-for="cat in doneTasksState.keyz">{{ cat }}
+        <RaportsCategory v-if="notHidden[cat]" :data="{ tasks: doneTasksState.data?.tasks?.[cat]?.tasks, category: cat }" />
+      </li>
     </ul>
-</div>
+  </div>
 </template>
 
 <style>
 .wrapper {
-  width:100%;
-  display:flex;
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
   max-width: 100% !important;
   overflow-x: hidden !important;
 }
+
 ul.category {
-  flex:1;
+  flex: 1;
   list-style: none;
   padding: 0;
 }
-ul.category > li{
-  flex:1;
+
+ul.category>li {
+  flex: 1;
   text-align: center;
   padding: 0.5rem;
   margin: 0.5rem;

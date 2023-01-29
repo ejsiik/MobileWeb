@@ -1,40 +1,51 @@
 <script setup>
-import { ref } from 'vue';
+import { inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { connection } from '../backend-connection/connection.js'
-const props = defineProps(['data'])
-const router = useRouter()
+const props = defineProps(['data']);
+const router = useRouter();
+const detailsObj = inject("details");
 
 function handleClick(item) {
-  console.log(item, category);
-  router.push({ name: 'raportsDetails', params: {items: item} });
+  router.push({ path: "/choose/details", components: item });
+  detailsObj.details = item;
   }
 </script>
 
 <template>
-  <ul id="list">
+  <ul class="list">
       <li v-if="data && data.length > 0" v-for="item in data" :key="item.id" v-on:click="handleClick(item)">
-        {{ item.category }}: {{ item.name }}
+        Category: {{ item.category }} <br/>
+        Task: {{ item.name }} <br/>
+        Finished At: {{ new Date(item.endTime).toLocaleString() }}
       </li>
       <li v-else>
-          Ładowanie...
+          There is no done task.
       </li>
   </ul>
 </template>
 
 <style>
-ul#list {
+
+ul.list {
   list-style: none;
   padding: 0;
 }
 
-ul#list li {
+ul.list li {
+  align-items: center;
+  justify-content: center;
+  text-align: left;
   padding: 0.5rem;
   margin: 0.5rem;
-  background-color: #F1F1F1;
+  background-color: #2A3B6F;
   border-radius: 0.2rem;
-  width: 70%;
-  color: #2A3B6F;
+  width:calc(100% - 1rem);
+  color: #F1F1F1;
+}
+@media only screen and (orientation: landscape) {
+    ul.list li {
+        text-align: center;
+    }
 }
 
 button {

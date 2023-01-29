@@ -16,6 +16,7 @@ import { connection } from '../backend-connection/connection'
   display: flex;
   flex-direction: column;
   background-color: #1c2a53;
+  gap: 75px;
   justify-content: center;
   align-items: center;
 }

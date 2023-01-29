@@ -12,8 +12,6 @@ connection.getTasksToAdd()
 .then(data => {
     doneTasksState.data = data;
     doneTasksState.keyz = Object.keys(data.tasks);
-    console.log(data);
-
 })
 .catch(e => {
     alert("Błąd wczytywania danych");
@@ -26,7 +24,6 @@ connection.getTasksToAdd()
     <div class = "wrapper">
     <ul class = "category">
         <li v-for="cat in doneTasksState.keyz">{{ cat }}<AddTaskPanel :data="{ tasks: doneTasksState.data?.tasks?.[cat], category: cat}" /></li>
-
     </ul>
 </div>
 </template>

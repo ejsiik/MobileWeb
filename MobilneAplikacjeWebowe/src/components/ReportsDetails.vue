@@ -1,28 +1,26 @@
+<script setup>
 
-<script>
-import { connection } from '../backend-connection/connection'
-export default {
-    name: () => import("../views/ReportsDetailsView.vue"),
-    props: ['items']
-};
+const props = defineProps(['item']);
+
+console.log(props.item);
 </script>
 
 <template>
     <div class="details">
         <p class="static">Name</p>
-        <p class="input" id="name">{{ items.id }}</p>
+        <p class="input" id="name">{{ item.name }}</p>
 
         <p class="static">Category</p>
-        <p class="input" id="category">text</p>
+        <p class="input" id="category">{{ item.category }}</p>
+
+        <p class="static">Started at</p>
+        <p class="input" id="start-time">{{ new Date(item.createdAt).toLocaleString() }}</p>
+
+        <p class="static">Finished at</p>
+        <p class="input" id="end-time">{{ new Date(item.endTime).toLocaleString() }}</p>
 
         <p class="static">Duration</p>
-        <p class="input" id="input">text</p>
-
-        <p class="static">Start time</p>
-        <p class="input" id="start-time">text</p>
-
-        <p class="static">End time</p>
-        <p class="input" id="end-time">text</p>
+        <p class="input" id="input">{{ item.duration }}</p>
     </div>
 </template>
 

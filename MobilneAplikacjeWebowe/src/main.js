@@ -7,6 +7,7 @@ import './assets/main.css'
 
 const app = createApp(App)
 app.provide("banner", reactive({ title: "Title" }));
+app.provide("details", reactive({ details: null }));
 app.use(Toaster)
 app.use(router)
 
