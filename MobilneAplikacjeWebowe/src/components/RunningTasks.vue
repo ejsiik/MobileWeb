@@ -4,7 +4,7 @@ import { connection } from '../backend-connection/connection.js';
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ maxToasts: 2, duration: 1000 });
 
-const props = defineProps(['data'])
+const props = defineProps(['data', 'loading'])
 
 const emit = defineEmits(["done"]);
 
@@ -24,6 +24,9 @@ async function check(event, item) {
       <input type="checkbox" class="running-task-check" name="running-task-check" @change="check($event, item)" />
       <br />
       Started At: {{ new Date(item.createdAt).toLocaleString() }}
+    </li>
+    <li v-else-if="loading === true">
+      Loading running tasks...
     </li>
     <li v-else>
         No tasks

@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue';
 import { useRouter } from 'vue-router';
-const props = defineProps(['data']);
+const props = defineProps(['data', 'loading']);
 const router = useRouter();
 const detailsObj = inject("details");
 
@@ -17,6 +17,9 @@ function handleClick(item) {
         Category: {{ item.category }} <br/>
         Task: {{ item.name }} <br/>
         Finished At: {{ new Date(item.endTime).toLocaleString() }}
+      </li>
+      <li v-else-if="loading">
+        Loading done tasks...
       </li>
       <li v-else>
           There is no done task.

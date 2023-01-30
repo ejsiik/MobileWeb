@@ -1,24 +1,47 @@
 <script setup>
 import RunningTasks from '../components/RunningTasks.vue';
-import { reactive, inject } from 'vue';
+import { reactive, inject, ref } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 const banner = inject("banner");
 banner.title = "Running Tasks";
 
 const runningTasks = reactive({ data: null });
+const loading = ref(true);
 
-setInterval(readData, 1000);
+readData();
 
-function readData() {
-    connection.runningTasks()
-        .then(data => {
-            runningTasks.data = data;
-            console.log(data);
-        })
-        .catch(e => {
-            alert("Błąd wczytywania danych");
-        });
+// Takie podejście jest lepsze niż setInterval, ponieważ setInterval
+// wyśle requesta co sekundę nie ważne co się stanie
+// w przypadku bardzo słabego połączenie [np. słaby zasięg] mogłoby to skutkować
+// kilkoma zapytaniami wysyłanymi w tym samym czasie, co by jeszcze bardziej obciążało
+// sieć na naszym telefonie i zawieszałos stronę.
+// Przy użyciu metody z czekaniem na odpowiedź, a potem ustawieniem timeout-a następny request
+// zostanie wysłany dopiero jak poprzedni zostanie odebrany.
+setTimeout(readDataLoop, 1000);
+async function readDataLoop() {
+    await readData(true);
+    setTimeout(readDataLoop, 1000);
+}
+
+async function readData(silent = false) {
+    if (!silent) {
+        loading.value = true;
+    }
+
+    try {
+        const data = await connection.runningTasks();
+        runningTasks.data = data;
+        console.log(data);
+    }
+    catch(e) {
+        alert("Błąd wczytywania danych");
+    }
+    finally {
+        if (!silent) {
+            loading.value = false;
+        }
+    }
 }
 
 </script>
@@ -26,7 +49,7 @@ function readData() {
     <div class="wrapper">
         <ul class="category">
             <li>
-                <RunningTasks @done="readData" :data="runningTasks.data?.tasks" />
+                <RunningTasks @done="readData" :data="runningTasks.data?.tasks" :loading="loading" />
             </li>
         </ul>
     </div>

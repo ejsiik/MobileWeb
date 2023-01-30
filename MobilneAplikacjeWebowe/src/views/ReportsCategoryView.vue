@@ -3,10 +3,13 @@ import RaportsCategory from '../components/ReportsCategory.vue';
 import { reactive, inject, ref } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
+
 const banner = inject("banner");
 banner.title = "Reports by Category";
 
 const doneTasksState = reactive({ data: null, keyz: [] });
+const loading = ref(true);
+loadData();
 
 const notHidden = reactive({
   "Computer": false,
@@ -14,8 +17,18 @@ const notHidden = reactive({
   "Console": false
 });
 
-connection.getDoneTasksFromCurrentUserHierarchy()
-  .then(data => {    
+setTimeout(loadDataLoop, 1000);
+async function loadDataLoop() {
+    await loadData(true);
+    setTimeout(loadDataLoop, 1000);
+}
+
+async function loadData(silent = false) {
+  if (!silent) {
+    loading.value = true;
+  }
+  try {
+    const data = await connection.getDoneTasksFromCurrentUserHierarchy();
     console.log(data);
     Object.values(data.tasks).forEach(cat => {
       const xd = [];
@@ -27,18 +40,27 @@ connection.getDoneTasksFromCurrentUserHierarchy()
     })
     doneTasksState.data = data;
     doneTasksState.keyz = Object.keys(data.tasks);
-  })
-  .catch(e => {
+  }
+  catch(e) {
     console.error(e);
     alert("Błąd wczytywania danych");
-  });
+  }
+  finally {
+    if (!silent) {
+      loading.value = false;
+    }
+  }
+}
 </script>
 
 <template>
   <div class="wrapper">
     <ul class="category">
-      <li @click ="notHidden[cat] = !notHidden[cat]" v-for="cat in doneTasksState.keyz">{{ cat }}
+      <li v-if="!loading" @click ="notHidden[cat] = !notHidden[cat]" v-for="cat in doneTasksState.keyz">{{ cat }}
         <RaportsCategory v-if="notHidden[cat]" :data="{ tasks: doneTasksState.data?.tasks?.[cat]?.tasks, category: cat }" />
+      </li>
+      <li v-else>
+        Loading done tasks...
       </li>
     </ul>
   </div>

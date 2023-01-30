@@ -42,7 +42,7 @@ const hidden = computed(() => ["/menu", "/"].includes(route.path));
       justify-content: center;
       align-items: center;
       background-color: #344887;
-      font-size: 30px;
+      font-size: 20px;
       color: #f8f8f8;
 }
 </style>
