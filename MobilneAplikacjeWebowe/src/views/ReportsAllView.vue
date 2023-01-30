@@ -1,29 +1,49 @@
 <script setup>
 import RaportsAll from '../components/ReportsAll.vue';
-import { reactive, inject } from 'vue';
+import { reactive, inject, ref } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 const banner = inject("banner");
 banner.title = "All Reports";
 
 const doneTasksState = reactive({ data: null });
+const loading = ref(true);
 
-connection.getDoneTasksFromCurrentUser()
-.then(data => {
-  console.log(data.tasks);
-  data.tasks.sort((a, b) => Date.parse(b.endTime) - Date.parse(a.endTime));
-  doneTasksState.data = data;
-  })
-.catch(e => {
-  console.error(e)
-  alert("Błąd wczytywania danych");
-});
+loadData();
+
+setTimeout(loadDataLoop, 1000);
+async function loadDataLoop() {
+    await loadData(true);
+    setTimeout(loadDataLoop, 1000);
+}
+
+async function loadData(silent = false) {
+  if (!silent) {
+    loading.value = true;
+  }
+
+  try {
+    const data = await connection.getDoneTasksFromCurrentUser();
+    console.log(data.tasks);
+    data.tasks.sort((a, b) => Date.parse(b.endTime) - Date.parse(a.endTime));
+    doneTasksState.data = data;
+  }
+  catch(e) {
+    console.error(e)
+    alert("Błąd wczytywania danych");
+  }
+  finally {
+    if (!silent) {
+      loading.value = false;
+    }
+  }
+}
 </script>
 
 <template>
   <div class = "wrapper">
     <ul class = "category">
-      <li><RaportsAll :data="doneTasksState.data?.tasks" /></li>
+      <li><RaportsAll :data="doneTasksState.data?.tasks" :loading="loading" /></li>
     </ul>
 </div>
 </template>
