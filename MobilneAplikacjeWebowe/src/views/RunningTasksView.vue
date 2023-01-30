@@ -8,7 +8,7 @@ banner.title = "Running Tasks";
 
 const runningTasks = reactive({ data: null });
 
-readData();
+setInterval(readData, 1000);
 
 function readData() {
     connection.runningTasks()
@@ -57,5 +57,6 @@ ul.category>li {
     border-radius: 0.2rem;
     color: #2A3B6F;
     font-weight: bold;
+    font-size:small;
 }
 </style>

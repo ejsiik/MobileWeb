@@ -15,13 +15,7 @@ const notHidden = reactive({
 });
 
 connection.getDoneTasksFromCurrentUserHierarchy()
-  .then(data => {
-    // console.log(Object.keys(data.tasks.Console));
-    // for (i of Object.keys(data.tasks).length) {
-    //   for (j in Object.keys(data.tasks[i]).length)
-    //   data.tasks[i][j].sort((a, b) => Date.parse(b.endTime) - Date.parse(a.endTime));
-    // }
-    
+  .then(data => {    
     console.log(data);
     Object.values(data.tasks).forEach(cat => {
       const xd = [];

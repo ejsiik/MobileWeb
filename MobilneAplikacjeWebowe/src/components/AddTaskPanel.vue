@@ -9,7 +9,7 @@ const props = defineProps(['data'])
 function handleClick(name, category) {
     connection.addTask(category, name);
     console.log(name, category);
-    toaster.info(`Task "${name}"" from category: "${category}" has been added.`);
+    toaster.info(`Task "${name}" from category: "${category}" has been added.`);
 }
 
 </script>

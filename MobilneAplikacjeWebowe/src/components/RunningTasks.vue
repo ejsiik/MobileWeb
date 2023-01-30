@@ -26,10 +26,8 @@ async function check(event, item) {
       Started At: {{ new Date(item.createdAt).toLocaleString() }}
     </li>
     <li v-else>
-      <center>
         No tasks
         <br /> currently in progress
-      </center>
     </li>
   </ul>
 </template>
@@ -40,8 +38,8 @@ async function check(event, item) {
   right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 ul.list_running_tasks {
