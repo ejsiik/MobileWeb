@@ -1,6 +1,6 @@
 <script setup>
 import RunningTasks from '../components/RunningTasks.vue';
-import { reactive, inject, ref } from 'vue';
+import { reactive, inject, ref, onBeforeUnmount } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 const banner = inject("banner");
@@ -18,11 +18,17 @@ readData();
 // sieć na naszym telefonie i zawieszałos stronę.
 // Przy użyciu metody z czekaniem na odpowiedź, a potem ustawieniem timeout-a następny request
 // zostanie wysłany dopiero jak poprzedni zostanie odebrany.
-setTimeout(readDataLoop, 1000);
+let timeout = setTimeout(readDataLoop, 1000);
 async function readDataLoop() {
     await readData(true);
-    setTimeout(readDataLoop, 1000);
+    timeout = setTimeout(readDataLoop, 1000);
 }
+
+onBeforeUnmount(() => {
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+});
 
 async function readData(silent = false) {
     if (!silent) {

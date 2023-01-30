@@ -1,6 +1,6 @@
 <script setup>
 import RaportsCategory from '../components/ReportsCategory.vue';
-import { reactive, inject, ref } from 'vue';
+import { reactive, inject, ref, onBeforeUnmount } from 'vue';
 import { connection } from '../backend-connection/connection.js';
 
 
@@ -17,11 +17,17 @@ const notHidden = reactive({
   "Console": false
 });
 
-setTimeout(loadDataLoop, 1000);
+let timeout = setTimeout(loadDataLoop, 1000);
 async function loadDataLoop() {
     await loadData(true);
-    setTimeout(loadDataLoop, 1000);
+    timeout = setTimeout(loadDataLoop, 1000);
 }
+
+onBeforeUnmount(() => {
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+});
 
 async function loadData(silent = false) {
   if (!silent) {
