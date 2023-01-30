@@ -27,7 +27,6 @@ onBeforeUnmount(() => {
     if (timeout) {
         clearTimeout(timeout);
     }
-});
 
 async function loadData(silent = false) {
   if (!silent) {
