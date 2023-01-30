@@ -7,14 +7,15 @@ const banner = inject("banner");
 banner.title = "Running Tasks";
 
 const runningTasks = reactive({ data: null });
+//setInterval(readData, 1000);
+readData()
 
-setInterval(readData, 1000);
 
 function readData() {
     connection.runningTasks()
         .then(data => {
             runningTasks.data = data;
-            console.log(data);
+            //console.log(data);
         })
         .catch(e => {
             alert("Błąd wczytywania danych");
