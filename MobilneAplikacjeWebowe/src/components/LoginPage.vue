@@ -40,7 +40,7 @@ async function login(event) {
         <form @submit="login">
             <div class="input-container">
                 <label>Username</label>
-                <input type="text" name="username" v-model="username" required autocomplete="off"/>
+                <input type="text" name="username" v-model="username" required autocomplete="off" autocapitalize="off"/>
             </div>
             <div class="input-container">
                 <label>Password</label>
