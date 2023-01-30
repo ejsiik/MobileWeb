@@ -11,6 +11,8 @@ const hidden = computed(() => ["/menu", "/"].includes(route.path));
 </script>
 
 <template>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
       <div class="banner"><button :class="{ return: true, hidden }" @click="router.back()"> &lt; </button>{{ bannerData.title }}</div>
       <main class="app-container">
             <RouterView />

@@ -21,7 +21,7 @@ banner.title = "Main menu";
   max-width: 100% !important;
   overflow-x: hidden !important;
   margin: 0 auto;
-  max-width: 100%;
+  max-height: 100%;
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
