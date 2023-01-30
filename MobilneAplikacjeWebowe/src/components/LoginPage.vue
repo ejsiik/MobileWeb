@@ -10,7 +10,7 @@ async function login(event) {
     event.preventDefault();
     let errorsDiv = document.querySelector(".input-container");
     if (!username.value) {
-        errorsDiv.insertAdjacentHTML('beforeend', '<p>Please enter a username.</p>');
+        errorsDiv.insertAdjacentHTML('afterend', '<p>Please enter a username.</p>');
         return;
     }
     if (!password.value) {
@@ -25,7 +25,7 @@ async function login(event) {
     
     catch (err) {
         if(!errorMessage.value) {
-            errorsDiv.insertAdjacentHTML('afterend', `<p style="color: red">${err.message}</p>`);
+            errorsDiv.insertAdjacentHTML('beforeend', `<p style="color: red">${err.message}</p>`);
             errorMessage.value = err.message;
         }
         username.value = ''
@@ -40,11 +40,11 @@ async function login(event) {
         <form @submit="login">
             <div class="input-container">
                 <label>Username</label>
-                <input type="text" name="username" v-model="username" required/>
+                <input type="text" name="username" v-model="username" required autocomplete="off"/>
             </div>
             <div class="input-container">
                 <label>Password</label>
-                <input type="password" name="password" v-model="password" required/>
+                <input type="password" name="password" v-model="password" required pattern="[0-9]*" inputmode="numeric"/>
             </div>
             <div class="submit-container">
                 <input type="submit" value="Login" />
