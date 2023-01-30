@@ -42,6 +42,7 @@ async function readData(silent = false) {
             loading.value = false;
         }
     }
+
 }
 
 </script>
