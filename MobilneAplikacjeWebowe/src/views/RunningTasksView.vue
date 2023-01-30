@@ -28,7 +28,6 @@ onBeforeUnmount(() => {
     if (timeout) {
         clearTimeout(timeout);
     }
-})
 
 async function readData(silent = false) {
     if (!silent) {
@@ -48,6 +47,7 @@ async function readData(silent = false) {
             loading.value = false;
         }
     }
+
 }
 
 </script>

@@ -17,7 +17,6 @@ const notHidden = reactive({
   "Console": false
 });
 
-
 let timeout = setTimeout(loadDataLoop, 1000);
 async function loadDataLoop() {
     await loadData(true);
@@ -28,7 +27,6 @@ onBeforeUnmount(() => {
     if (timeout) {
         clearTimeout(timeout);
     }
-})
 
 async function loadData(silent = false) {
   if (!silent) {
